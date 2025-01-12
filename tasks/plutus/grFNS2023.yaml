@@ -7,14 +7,12 @@ fewshot_split: train
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 generation_kwargs:
-  until:
-    - "."
   do_sample: false
   temperature: 0.0
-  max_gen_toks: 1024
+  max_gen_toks: 512
 metric_list:
-  - metric: exact_match
-    aggregation: mean
+  - metric: !function gr_utils.rouge1
+    aggregation: !function gr_utils.rouge1_agg
     higher_is_better: true
 metadata:
   version: '1.0'

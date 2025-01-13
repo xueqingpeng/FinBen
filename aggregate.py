@@ -269,6 +269,11 @@ METRIC_DICT = {
         "random_baseline": 1.0 / 3.8,
         "key": "acc_norm,none",
     },
+    "GRFNS2023": {
+        "task_name": "FNS",
+        "random_baseline": 0.0,
+        "key": "rouge1,none",
+    },
 }
 
 

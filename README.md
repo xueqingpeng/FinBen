@@ -43,7 +43,7 @@ Set the Hugging Face token as an environment variable:
       ```bash
       # 0-shot
       lm_eval --model vllm \
-         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct" \
+         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,gpu_memory_utilization=0.8,max_model_len=1024"" \
          --tasks GRMultifin \
          --num_fewshot 0 \
          --device cuda:0 \
@@ -56,7 +56,7 @@ Set the Hugging Face token as an environment variable:
    
       # 5-shot
       lm_eval --model vllm \
-         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct" \
+         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,gpu_memory_utilization=0.8,max_model_len=1024"" \
          --tasks GRMultifin \
          --num_fewshot 5 \
          --device cuda:0 \

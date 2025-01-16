@@ -46,7 +46,7 @@ Set the Hugging Face token as an environment variable:
          --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
          --tasks GRMultifin \
          --num_fewshot 0 \
-         --batch_size 8 \
+         --batch_size auto \
          --output_path results \
          --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
@@ -58,7 +58,7 @@ Set the Hugging Face token as an environment variable:
          --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
          --tasks GRMultifin \
          --num_fewshot 5 \
-         --batch_size 8 \
+         --batch_size auto \
          --output_path results \
          --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \

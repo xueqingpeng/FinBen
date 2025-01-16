@@ -43,10 +43,9 @@ Set the Hugging Face token as an environment variable:
       ```bash
       # 0-shot
       lm_eval --model vllm \
-         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,gpu_memory_utilization=0.8,max_model_len=1024"" \
+         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
          --tasks GRMultifin \
          --num_fewshot 0 \
-         --device cuda:0 \
          --batch_size 8 \
          --output_path results \
          --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
@@ -56,10 +55,9 @@ Set the Hugging Face token as an environment variable:
    
       # 5-shot
       lm_eval --model vllm \
-         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,gpu_memory_utilization=0.8,max_model_len=1024"" \
+         --model_args "pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
          --tasks GRMultifin \
          --num_fewshot 5 \
-         --device cuda:0 \
          --batch_size 8 \
          --output_path results \
          --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \

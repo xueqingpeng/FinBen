@@ -18,9 +18,9 @@
 ## Logging into Hugging Face
 
 Set the Hugging Face token as an environment variable:
-```bash
-export HF_TOKEN="your_hf_token"
-```
+   ```bash
+   export HF_TOKEN="your_hf_token"
+   ```
 
 ## Model Evaluation
 
@@ -69,7 +69,7 @@ export HF_TOKEN="your_hf_token"
    ```
    The accuracy achieved for this command is as follows: 0.3704 for 0-shot and 0.3889 for 5-shot.
    
-   ###### GRQA
+   ##### GRQA
    ```bash
    # 0-shot
    lm_eval --model vllm \
@@ -125,6 +125,6 @@ export HF_TOKEN="your_hf_token"
 
 ## Results 
    Evaluation results will be saved in the following locations:
-      - **Local directory: `FinBen/results/`
-      - **Hugging Face Hub: Defined in `results_repo_name` under `hub_results_org`.
+      - **Local directory:** `FinBen/results/`
+      - **Hugging Face Hub:** Defined in `results_repo_name` under `hub_results_org`.
 

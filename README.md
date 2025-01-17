@@ -48,7 +48,7 @@ Set the Hugging Face token as an environment variable:
          --num_fewshot 0 \
          --batch_size auto \
          --output_path results \
-         --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
          --apply_chat_template \
          --include_path ./tasks
@@ -60,7 +60,7 @@ Set the Hugging Face token as an environment variable:
          --num_fewshot 5 \
          --batch_size auto \
          --output_path results \
-         --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
          --apply_chat_template \
          --include_path ./tasks
@@ -76,7 +76,7 @@ Set the Hugging Face token as an environment variable:
          --num_fewshot 0 \
          --batch_size auto \
          --output_path results \
-         --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
          --apply_chat_template \
          --include_path ./tasks
@@ -88,7 +88,7 @@ Set the Hugging Face token as an environment variable:
          --num_fewshot 5 \
          --batch_size auto \
          --output_path results \
-         --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
          --apply_chat_template \
          --include_path ./tasks
@@ -103,7 +103,7 @@ Set the Hugging Face token as an environment variable:
          --num_fewshot 0 \
          --batch_size auto \
          --output_path results \
-         --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
          --log_samples \
          --apply_chat_template \
          --include_path ./tasks
@@ -115,7 +115,7 @@ Set the Hugging Face token as an environment variable:
             --num_fewshot 5 \
           --batch_size auto \
           --output_path results \
-          --hf_hub_log_args "hub_results_org=TheFinAI,results_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+          --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-gr-5shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
           --log_samples \
           --apply_chat_template \
           --include_path ./tasks
@@ -124,5 +124,5 @@ Set the Hugging Face token as an environment variable:
 ## Results
    Evaluation results will be saved in the following locations:
       - **Local directory:** `FinBen/results/`
-      - **Hugging Face Hub:** Defined in `results_repo_name` under `hub_results_org`.
+      - **Hugging Face Hub:** Defined in `details_repo_name` under `hub_results_org`.
 

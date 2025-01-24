@@ -79,3 +79,36 @@ Evaluation results will be saved in the following locations:
 - **Hugging Face Hub:** As defined in `details_repo_name` under `hub_results_org`.
 
 ---
+
+## Notes
+
+The `lm-eval-results` is directly linked to our Greek leaderboard. If you have added a new model that is not included in `FinBen/aggregate.py`, please provide me with all the necessary information.
+
+   ### Relevant Resources
+   You can find related information at the following links:
+   - [Open LLM Leaderboard on Hugging Face](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?search=qwen2.5-1.5b-instruct)
+   - [Open AI Models](https://mot.isitopen.ai/)
+
+   ### Model Information Template
+   Please include the following details in your submission for the new model:
+
+   ```json
+   "ilsp/Meltemi-7B-Instruct-v1.5": {
+      # "Architecture": "",
+      "Hub License": "apache-2.0",
+      "Hub ❤️": 17,
+      "#Params (B)": 7.48,
+      "Available on the hub": True,
+      "MoE": False,
+      # "generation": 0,
+      "Base Model": "ilsp/Meltemi-7B-v1.5",
+      "Type": "💬 chat models (RLHF, DPO, IFT, ...)",
+      "T": "💬",
+      "full_model_name": '<a target="_blank" href="https://huggingface.co/ilsp/Meltemi-7B-Instruct-v1.5" style="color: var(--link-text-color); text-decoration: underline; text-decoration-style: dotted;">meta-llama/Llama-3.2-1B-Instruct</a>',
+      # "co2_kg_per_s": 0
+   }
+   ```
+
+   For any parameters that you cannot find, it's perfectly fine to comment them out.
+
+   Thank you for your contributions!

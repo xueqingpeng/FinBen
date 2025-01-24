@@ -26,5 +26,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRQAGen
+tag: gr_gen
 test_split: test
 training_split: train

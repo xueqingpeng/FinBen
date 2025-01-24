@@ -1,8 +1,8 @@
-import evaluate
+import evaluate, re, string
 from seqeval.metrics import f1_score as entity_score
 
 
-
+# summarizaiton
 def rouge1(items):
     """
     # passthrough for efficiency
@@ -20,11 +20,12 @@ def rouge1_agg(items):
     return rouge_scorer.compute(predictions=preds, references=refs)["rouge1"]
 
 
-
+# ner
 def process_text(entity_string, text):
     # Initialize
     entity_list = [(", ".join(val.split(", ")[:-1]), val.split(", ")[-1]) for val in entity_string.split("\n")]
-    text_words = text.split()
+    text_words = list(filter(None, re.split(r'(\s+|[' + re.escape(string.punctuation).replace('%', '') + r'«»‘’“”€])', text)))
+    # print(text_words)
     labels = ['O'] * len(text_words)
     # text_lower = text.lower()
     text_lower = text
@@ -32,7 +33,7 @@ def process_text(entity_string, text):
     # Create a list to store the start index of each word
     word_indices = [0]
     for word in text_words[:-1]:
-        word_indices.append(word_indices[-1] + len(word) + 1)
+        word_indices.append(word_indices[-1] + len(word))
 
     # Iterate over the entity list
     # print (entity_list)
@@ -62,18 +63,36 @@ def process_text(entity_string, text):
                 pass
             start = end + 1
 
-    return labels
+    _, filtered_labels = bio_filter(text_words, labels)
+
+    return filtered_labels
+
+
+def bio_filter(text_list, label_list):
+    processed_text = []
+    processed_label = []
+
+    for text, label in zip(text_list, label_list):
+        if not re.search(r'(\s+|[' + re.escape(string.punctuation).replace('%', '') + r'«»‘’“”€])', text):
+            processed_text.append(text)
+            processed_label.append(label)
+
+    # print(processed_text)
+    return processed_text, processed_label
 
 
 def process_results(doc, results):
     text = doc["text"]
+    # print("\n" + text)
 
     ground_truths_string = doc["answer"]
+    # print(ground_truths_string)
     ground_truths = process_text(ground_truths_string, text)
     # print(len(ground_truths))
     # print(ground_truths)
 
     prediction_string = results[0].strip()
+    # print(prediction_string)
     prediction = process_text(prediction_string, text)
     # print(len(prediction))
     # print(prediction)

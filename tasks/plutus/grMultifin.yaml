@@ -17,5 +17,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRMultifin
+tag: gr
 test_split: test
 training_split: train

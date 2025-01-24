@@ -26,6 +26,5 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRMultifinGen
-tag: gr_classification_gen
 test_split: test
 training_split: train

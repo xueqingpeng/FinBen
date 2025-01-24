@@ -92,7 +92,7 @@ The `lm-eval-results` is directly linked to our Greek leaderboard. If you have a
    ### Model Information Template
    Please include the following details in your submission for the new model:
 
-   ```json
+   ```python
    "ilsp/Meltemi-7B-Instruct-v1.5": {
       # "Architecture": "",
       "Hub License": "apache-2.0",

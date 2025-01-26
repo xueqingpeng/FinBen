@@ -38,7 +38,7 @@ export HF_TOKEN="your_hf_token"
 
 3. Run evaluation:
    ### Important Notes on Evaluation
-   - **0-shot setting:** Use `num_fewshot=0` and `lm-eval-results` as the results repository.
+   - **0-shot setting:** Use `num_fewshot=0` and `lm-eval-results-gr-0shot` as the results repository.
    - **5-shot setting:** Use `num_fewshot=5` and `lm-eval-results-gr-5shot` as the results repository.
    - **Base models:** Remove `apply_chat_template`.
    - **Instruction models:** Use `apply_chat_template`.
@@ -82,7 +82,7 @@ Evaluation results will be saved in the following locations:
 
 ## Notes
 
-The `lm-eval-results` is directly linked to our Greek leaderboard. If you have added a new model that is not included in `FinBen/aggregate.py`, please provide me with all the necessary information.
+The `lm-eval-results` is directly linked to our Greek leaderboard. If you have added a new model to this repo that is not included in `FinBen/aggregate.py`, please provide me with all the necessary information.
 
    ### Relevant Resources
    You can find related information at the following links:

@@ -9,7 +9,6 @@ should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 metric_list:
   - metric: mcc
-    aggregation: mean
     higher_is_better: true
 metadata:
   version: '1.0'

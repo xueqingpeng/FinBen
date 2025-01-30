@@ -8,10 +8,7 @@ fewshot_split: train
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 metric_list:
-  - metric: acc
-    aggregation: mean
-    higher_is_better: true
-  - metric: acc_norm
+  - metric: mcc
     aggregation: mean
     higher_is_better: true
 metadata:

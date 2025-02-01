@@ -23,9 +23,9 @@ MODELS=(
     # "mistralai/Mistral-7B-Instruct-v0.3"
     # "ilsp/Meltemi-7B-Instruct-v1.5"
 
-    "gpt-4"
-    "gpt-4o"
-    "gpt-4o-mini"
+    # "gpt-4"
+    # "gpt-4o"
+    # "gpt-4o-mini"
     # "gpt-3.5-turbo-0125"
 )
 
@@ -81,15 +81,15 @@ for MODEL in "${MODELS[@]}"; do
     #     --apply_chat_template \
     #     --include_path ../tasks/plutus
 
-    # api-openai
-    lm_eval --model openai-chat-completions \
-        --model_args "model=$MODEL" \
-        --tasks GRFINNUM,GRFINTEXT \
-        --output_path ../results \
-        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
-        --log_samples \
-        --apply_chat_template \
-        --include_path ../tasks/plutus
+    # # api-openai
+    # lm_eval --model openai-chat-completions \
+    #     --model_args "model=$MODEL" \
+    #     --tasks GRFINNUM,GRFINTEXT \
+    #     --output_path ../results \
+    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+    #     --log_samples \
+    #     --apply_chat_template \
+    #     --include_path ../tasks/plutus
         
     echo "Finished evaluating model: $MODEL"
 done

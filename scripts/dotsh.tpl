@@ -30,6 +30,7 @@ MODELS=(
     "google/gemma-2-27b-it"
     "mistralai/Mistral-7B-Instruct-v0.3"
     "ilsp/Meltemi-7B-Instruct-v1.5"
+    "TheFinAI/FinLLaMA-instruct"
 )
 
 # Loop through each model

@@ -232,6 +232,20 @@ MODEL_DICT = {
         "full_model_name": '<a target="_blank" href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3" style="color: var(--link-text-color); text-decoration: underline;text-decoration-style: dotted;">meta-llama/Llama-3.2-1B-Instruct</a>',
         "co2_kg_per_s": 0.54,
     },
+    "TheFinAI/FinLLaMA-instruct": {
+        # "Architecture": "",
+        # "Hub License": "",
+        "Hub ❤️": 9,
+        "#Params (B)":7.5,
+        "Available on the hub": True,
+        # "MoE": False,
+        # "generation": 0,
+        "Base Model": "TheFinAI/FinLLaMA",
+        "Type": "💬 chat models (RLHF, DPO, IFT, ...)",
+        "T": "💬",
+        "full_model_name": '<a target="_blank" href="https://huggingface.co/TheFinAI/FinLLaMA-instruct" style="color: var(--link-text-color); text-decoration: underline;text-decoration-style: dotted;">meta-llama/Llama-3.2-1B-Instruct</a>',
+        # "co2_kg_per_s": 0,
+    },
     "ilsp/Meltemi-7B-Instruct-v1.5": {
         # "Architecture": "",
         "Hub License": "apache-2.0",
@@ -273,6 +287,16 @@ METRIC_DICT = {
         "task_name": "FNS",
         "random_baseline": 0.0,
         "key": "rouge1,none",
+    },
+    "GRFINNUM": {
+        "task_name": "GRFINNUM",
+        "random_baseline": 0.0,
+        "key": "f1",
+    },
+    "GRFINTEXT": {
+        "task_name": "GRFINTEXT",
+        "random_baseline": 0.0,
+        "key": "f1",
     },
 }
 

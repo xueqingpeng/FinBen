@@ -1,0 +1,25 @@
+dataset_path: daishen/zh-fineval
+dataset_kwargs:
+  cache_dir: /data/wangyuxin/.cache/huggingface/datasets/
+  trust_remote_code: true
+#validation_split: valid
+test_split: valid
+output_type: multiple_choice
+doc_to_text: '{{query}}'
+doc_to_target: gold
+doc_to_choice: choices
+#fewshot_config:
+#  sampler: first_n
+fewshot_split: dev  # num_fewshot (default: None) --> zero-shot
+num_fewshot: 5
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: '1.0'

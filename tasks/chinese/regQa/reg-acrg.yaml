@@ -1,0 +1,22 @@
+tag: reg-qa
+task: reg-acrg
+dataset_path: TheFinAI/zh-reg-acrg
+dataset_name: default
+test_split: test
+output_type: generate_until
+doc_to_text: '{{query}}'
+doc_to_target: '{{answer}}'
+fewshot_split: train
+num_fewshot: 1
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+metric_list:
+  - metric: !function reg_utils.bertscore_zh
+    aggregation: !function reg_utils.bertscore_agg_zh
+    higher_is_better: true
+generation_kwargs:
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 512
+metadata:
+  version: '1.0'

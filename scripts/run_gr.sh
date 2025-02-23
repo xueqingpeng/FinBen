@@ -1,8 +1,6 @@
 #!/bin/bash
 
 source .env
-echo "HF_TOKEN: $HF_TOKEN"
-
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
 export CUDA_VISIBLE_DEVICES=0
 
@@ -21,8 +19,13 @@ MODELS=(
     # "google/gemma-2-2b-it"
     # "google/gemma-2-9b-it"
     # "google/gemma-2-27b-it"
+    "meta-llama/Llama-3.1-8B-Instruct"
+    "mistralai/Mistral-7B-Instruct-v0.1"
     # "mistralai/Mistral-7B-Instruct-v0.3"
+
     # "ilsp/Meltemi-7B-Instruct-v1.5"
+    "ilsp/Llama-Krikri-8B-Instruct"
+    # "TheFinAI/plutus-8B-instruct"
 
     # "gpt-4"
     # "gpt-4o"

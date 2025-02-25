@@ -1,0 +1,22 @@
+dataset_name: default
+dataset_path: YanAdjeNole/Passage_ranking3_test
+output_type: generate_until
+doc_to_target: '{{answer}}'
+doc_to_text: '{{query}}'
+fewshot_split: train
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  do_sample: false
+  temperature: 0.3
+  max_gen_toks: 5
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: '1.0'
+task: PassageRank3
+tag: passage_rank
+test_split: test
+training_split: train

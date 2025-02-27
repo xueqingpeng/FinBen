@@ -22,7 +22,7 @@ for TASK in "${TASKS[@]}"; do
       --model_args "pretrained=google/gemma-2-27b-it,tensor_parallel_size=2,gpu_memory_utilization=0.90,max_model_len=512" \
       --tasks "$TASK" \
       --num_fewshot 0 \
-      --output_path results/rank \
+      --output_path ../results/rank \
       --hf_hub_log_args "hub_results_org=YanAdjeNole,details_repo_name=lm-eval-ranking-0shot-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
       --log_samples \
       --apply_chat_template \

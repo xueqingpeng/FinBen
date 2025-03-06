@@ -26,5 +26,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: Convfinqa
+tag: fin
 test_split: test
 training_split: test

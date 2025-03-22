@@ -14,8 +14,8 @@ MODELS=(
     # "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
     # "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
     # "meta-llama/Meta-Llama-3-8B-Instruct"
-    # "Qwen/Qwen2.5-72B-Instruct-math"
-    "Qwen/QwQ-32B"
+    "Qwen/Qwen2.5-Math-72B-Instruct"
+    # "Qwen/QwQ-32B"
 )
 
 # Loop through each model

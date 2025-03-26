@@ -1,19 +1,20 @@
 #!/bin/bash
 
 source .env
-echo "HF_TOKEN: $HF_TOKEN"
+echo "HF_USERNAME: $HF_USERNAME"
+echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=3
+export CUDA_VISIBLE_DEVICES=0
 
 # Array of models
 MODELS=(
-    "Qwen/Qwen2.5-3B-Instruct"
-    "TheFinAI/fl-MED-SYN0-CLEVELAND-merged"
-    "TheFinAI/fl-MED-SYN0-HUNGARIAN-train-merged"
-    "TheFinAI/fl-MED-SYN0-SWITZERLAND-merged"
-    "TheFinAI/fl-MED-SYN0-VA-merged"
-    "TheFinAI/fl-SYNC0-merged"
+    # "Qwen/Qwen2.5-3B"
+    # "Qwen/Qwen2.5-3B-Instruct"
+    "Xueqing/fl-cleveland-dpo-qlora"
+    # "Xueqing/fl-hungarian-dpo-qlora"
+    # "Xueqing/fl-switzerland-dpo-qlora"
+    # "Xueqing/fl-va-dpo-qlora"
 )
 
 # Loop through each model
@@ -26,10 +27,10 @@ for MODEL in "${MODELS[@]}"; do
         --tasks fl \
         --batch_size auto \
         --output_path ../results \
-        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=False,push_samples_to_hub=False,public_repo=False" \
         --log_samples \
         --apply_chat_template \
-        --include_path ../tasks/federal_learning
+        --include_path ../tasks/federated_learning
 
     echo "Finished evaluating model: $MODEL"
 done

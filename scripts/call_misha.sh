@@ -1,17 +1,17 @@
 #!/bin/bash
 
-#SBATCH --job-name=grfinsum
-#SBATCH --time=02-00:00:00
+#SBATCH --job-name=finben_paper
+#SBATCH --time=01-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gpus=4
+#SBATCH --gpus=2
 #SBATCH --constraint="h100"
 #SBATCH --mem=512G
 #SBATCH --mail-type=ALL
 #SBATCH --output=/home/xp83/Documents/project/logs/%j_gpu.out
 
 module load miniconda
-mamba activate finben
+conda activate finben
 
 echo '-------------------------------------------------'
 echo "Job Name: ${SLURM_JOB_NAME}"
@@ -23,4 +23,4 @@ echo SLURM_NODES are $(echo ${SLURM_NODELIST})
 echo '-------------------------------------------------'
 echo -e '\n\n'
 
-bash "/gpfs/radev/home/xp83/Documents/project/scripts/FinBen/scripts/run_gr.sh"
+bash run_finben_paper.sh

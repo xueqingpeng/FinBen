@@ -1,0 +1,26 @@
+dataset_name: default
+dataset_path: TheFinAI/XBRL_Tagging_NER_test
+output_type: generate_until
+doc_to_target: '{{answer}}'
+doc_to_text: '{{query}}'
+fewshot_split: train
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  until:
+    - "JSON_END"
+  do_sample: false
+  # top_p: 0.95
+  # top_k: 30
+  temperature: 0.0
+  max_gen_toks: 1024
+metric_list:
+  - metric: !function xbrl_utils.evaluate_ner
+    aggregation: !function xbrl_utils.evaluate_ner_agg
+    higher_is_better: true
+metadata:
+  version: '1.0'
+task: XBRL_NER
+tag: xbrl
+test_split: test
+training_split: train

@@ -5,7 +5,7 @@ echo "HF_USERNAME: $HF_USERNAME"
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 
 # Array of models
 MODELS=(
@@ -20,7 +20,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 1024
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.95,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_model_len=1024" \
         --tasks finben_paper \
         --batch_size auto \
         --output_path ../results/finben_paper \

@@ -23,4 +23,8 @@ echo SLURM_NODES are $(echo ${SLURM_NODELIST})
 echo '-------------------------------------------------'
 echo -e '\n\n'
 
+export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
+export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
+
 bash run_finben_paper.sh
+bash run_xbrl-tag.sh

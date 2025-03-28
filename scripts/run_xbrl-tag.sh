@@ -5,7 +5,7 @@ echo "HF_USERNAME: $HF_USERNAME"
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=0
 export HF_HUB_READ_TIMEOUT=180
 export HF_HUB_CONNECT_TIMEOUT=180
 
@@ -25,15 +25,15 @@ for MODEL in "${MODELS[@]}"; do
         --tasks XBRL_NER \
         --batch_size auto \
         --num_fewshot 0 \
-        --device cuda:0 \
         --output_path ../results/xbrl_ner \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-xbrl-tagging-ner-0-shot-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \
         --include_path ../tasks/XBRLtagging
+        # --device cuda:0 \
         # --apply_chat_template \
 
     lm_eval --model vllm \
-        --model_args "pretrained=TheFinAI/FinLLaMA-instruct,tensor_parallel_size=2,gpu_memory_utilization=0.90,max_model_len=2048" \
+        --model_args "pretrained=TheFinAI/FinLLaMA-instruct,tensor_parallel_size=1,gpu_memory_utilization=0.90,max_model_len=2048" \
         --tasks XBRL_NER \
         --batch_size auto \
         --num_fewshot 0 \

@@ -20,7 +20,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 1024
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.95,max_model_len=1024" \
         --tasks finben_paper \
         --batch_size auto \
         --output_path ../results/finben_paper \

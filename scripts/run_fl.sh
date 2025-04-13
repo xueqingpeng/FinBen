@@ -10,7 +10,7 @@ export PYTHONWARNINGS="ignore"
 
 # Array of models
 MODELS=(
-    "Qwen/Qwen2.5-3B"
+    "Qwen/Qwen2.5-3B" # apply_chat_template
     "Qwen/Qwen2.5-3B-Instruct"
     "TheFinAI/fl-cleveland-sft-2"
     "TheFinAI/fl-switzerland-sft-2"

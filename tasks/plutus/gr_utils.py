@@ -1,6 +1,5 @@
-import evaluate, re, string
+import evaluate, re, string, json
 from seqeval.metrics import f1_score as entity_score
-import json
 from rouge_score import rouge_scorer
 
 
@@ -23,26 +22,31 @@ def rouge1_agg(items):
 
 
 # extractive summarization ROUGE-1 evaluation
+def parse_prediction_indices(s):
+    s = s.strip()
+    try:
+        items = json.loads(s)
+    except:
+        delim = ';' if ';' in s else ',' if ',' in s else None
+        items = s.split(delim) if delim else [s]
+    return [int(x) for x in items if x.strip().isdigit()]
+
+
 def process_results_for_es(doc, results):
-    sentences = doc["sentences"]
+    choices = doc["choices"]
 
-    print("ground_truths")
     ground_truths_indices = doc["gold"]
-    print(ground_truths_indices)
-    ground_truths = "".join([sentences[i] for i in ground_truths_indices])
-    print(ground_truths)
+    print(f"* ground_truths_indices: {ground_truths_indices}")
+    ground_truths = "".join([choices[i] for i in ground_truths_indices])
+    print(f"* ground_truths: {ground_truths}")
 
-    print("output")
+    print("* output:")
     print(results[0].strip())
 
-    try:
-        print("prediction")
-        prediction_indices = json.loads(results[0].strip())
-        print(prediction_indices)
-        prediction = "".join([sentences[i] for i in prediction_indices])
-        print(prediction)
-    except (json.JSONDecodeError, IndexError):
-        prediction = ""
+    prediction_indices = parse_prediction_indices(results[0].strip())
+    print(f"* prediction_indices: {prediction_indices}")
+    prediction = "".join([choices[i] for i in prediction_indices])
+    print(f"* prediction: {prediction}")
 
     scorer = rouge_scorer.RougeScorer(['rouge1'], use_stemmer=True)
     rouge1 = scorer.score(ground_truths, prediction)

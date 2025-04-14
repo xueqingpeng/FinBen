@@ -1,7 +1,7 @@
 dataset_name: default
 dataset_path: TheFinAI/plutus-finsum
 output_type: generate_until
-doc_to_target: '{{gold}}'
+doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'
 fewshot_split: train
 should_decontaminate: true

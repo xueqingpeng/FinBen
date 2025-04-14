@@ -32,9 +32,9 @@ MODELS=(
     # "Qwen/QwQ-32B"
 
     # "gpt-4.5-preview"
-    # "gpt-4"
     # "gpt-4o"
     # "gpt-4o-mini"
+    # "gpt-4"
     # "gpt-3.5-turbo-0125"
 )
 
@@ -49,7 +49,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --num_fewshot 0 \
     #     --device cuda:2 \
     #     --batch_size auto \
-    #     --output_path ../results \
+    #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \
     #     --apply_chat_template \
@@ -62,7 +62,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --num_fewshot 0 \
     #     --device cuda:2 \
     #     --batch_size auto \
-    #     --output_path ../results \
+    #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \
     #     --apply_chat_template \
@@ -73,7 +73,7 @@ for MODEL in "${MODELS[@]}"; do
         --model_args "pretrained=$MODEL,tensor_parallel_size=1,gpu_memory_utilization=0.8,max_model_len=1024" \
         --tasks GRFinSum2 \
         --batch_size auto \
-        --output_path ../results \
+        --output_path ../results/gr \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \
         --apply_chat_template \
@@ -84,7 +84,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
     #     --tasks gr_long \
     #     --batch_size auto \
-    #     --output_path ../results \
+    #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \
     #     --apply_chat_template \
@@ -94,7 +94,7 @@ for MODEL in "${MODELS[@]}"; do
     # lm_eval --model openai-chat-completions \
     #     --model_args "model=$MODEL" \
     #     --tasks GRFINNUM,GRFINTEXT \
-    #     --output_path ../results \
+    #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \
     #     --apply_chat_template \
@@ -107,7 +107,7 @@ done
 # lm_eval --model deepseek-chat-completions \
 #     --model_args "model=deepseek-chat,max_gen_toks=128,num_concurrent=10" \
 #     --tasks GRFINNUM,GRFINTEXT \
-#     --output_path ../results \
+#     --output_path ../results/gr \
 #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
 #     --log_samples \
 #     --apply_chat_template \

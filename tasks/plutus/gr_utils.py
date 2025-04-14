@@ -1,5 +1,7 @@
 import evaluate, re, string
 from seqeval.metrics import f1_score as entity_score
+import json
+from rouge_score import rouge_scorer
 
 
 # summarizaiton
@@ -18,6 +20,33 @@ def rouge1_agg(items):
     preds = list(zip(*items))[1]
     rouge_scorer = evaluate.load("rouge")
     return rouge_scorer.compute(predictions=preds, references=refs)["rouge1"]
+
+
+# extractive summarization ROUGE-1 evaluation
+def process_results_for_es(doc, results):
+    sentences = doc["sentences"]
+
+    print("ground_truths")
+    ground_truths_indices = doc["gold"]
+    print(ground_truths_indices)
+    ground_truths = "".join([sentences[i] for i in ground_truths_indices])
+    print(ground_truths)
+
+    print("output")
+    print(results[0].strip())
+
+    try:
+        print("prediction")
+        prediction_indices = json.loads(results[0].strip())
+        print(prediction_indices)
+        prediction = "".join([sentences[i] for i in prediction_indices])
+        print(prediction)
+    except (json.JSONDecodeError, IndexError):
+        prediction = ""
+
+    scorer = rouge_scorer.RougeScorer(['rouge1'], use_stemmer=True)
+    rouge1 = scorer.score(ground_truths, prediction)
+    return {"rouge1": rouge1}
 
 
 # ner

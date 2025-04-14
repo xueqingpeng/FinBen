@@ -1,8 +1,10 @@
 #!/bin/bash
 
 source .env
+echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
+
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+export CUDA_VISIBLE_DEVICES=0
 
 # Array of models
 MODELS=(
@@ -29,6 +31,7 @@ MODELS=(
 
     # "Qwen/QwQ-32B"
 
+    # "gpt-4.5-preview"
     # "gpt-4"
     # "gpt-4o"
     # "gpt-4o-mini"
@@ -67,8 +70,8 @@ for MODEL in "${MODELS[@]}"; do
 
     # 1024
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
-        --tasks GRFinSum \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=1,gpu_memory_utilization=0.8,max_model_len=1024" \
+        --tasks GRFinSum2 \
         --batch_size auto \
         --output_path ../results \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \

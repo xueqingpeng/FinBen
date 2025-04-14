@@ -5,7 +5,7 @@ def get_comet_score(doc, results):
     Calculate the quality score of machine translation using the COMET model.
     """
     # Download the model (skip if it already exists)
-    model_path = download_model("wmt20-comet-da")
+    model_path = download_model("Unbabel/wmt22-comet-da")
     model = load_from_checkpoint(model_path)
 
     source = doc["text"]

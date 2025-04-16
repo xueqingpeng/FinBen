@@ -1,5 +1,5 @@
 dataset_name: default
-dataset_path: TheFinAI/DOLFIN_test
+dataset_path: TheFinAI/DOLFIN_en_es_test
 output_type: generate_until
 doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'
@@ -9,15 +9,14 @@ doc_to_decontamination_query: "{{query}}"
 generation_kwargs:
   do_sample: false
   temperature: 0.0
-  max_gen_toks: 512
+  max_gen_toks: 1024
 metric_list:
-  - metric: COMET
-    aggregation: mean
+  - metric: !function multifinben_utils.comet
+    aggregation: !function multifinben_utils.comet_agg
     higher_is_better: true
 metadata:
   version: '1.0'
 task: DoLFin
-tag: mfb
+tag: multifinben
 test_split: test
 training_split: train
-process_results: !function multifinben_utils.get_comet_score

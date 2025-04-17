@@ -1,6 +1,5 @@
 import evaluate, re, string, json
 from seqeval.metrics import f1_score as entity_score
-from rouge_score import rouge_scorer
 
 
 # summarizaiton
@@ -35,22 +34,20 @@ def parse_prediction_indices(s):
 def process_results_for_es(doc, results):
     choices = doc["choices"]
 
-    ground_truths_indices = doc["gold"]
-    print(f"* ground_truths_indices: {ground_truths_indices}")
-    ground_truths = "".join([choices[i] for i in ground_truths_indices])
-    print(f"* ground_truths: {ground_truths}")
+    ground_truth_indices = doc["gold"]
+    print(f"* ground_truth_indices: {ground_truth_indices}")
+    ground_truth = " ".join([choices[i] for i in ground_truth_indices])
+    print(f"* ground_truths: {ground_truth}")
 
-    print("* output:")
-    print(results[0].strip())
+    print(f"* output: {results[0].strip()}")
 
     prediction_indices = parse_prediction_indices(results[0].strip())
     print(f"* prediction_indices: {prediction_indices}")
-    prediction = "".join([choices[i] for i in prediction_indices])
+    prediction = " ".join([choices[i] for i in prediction_indices])
     print(f"* prediction: {prediction}")
-
-    scorer = rouge_scorer.RougeScorer(['rouge1'], use_stemmer=True)
-    rouge1 = scorer.score(ground_truths, prediction)
-    return {"rouge1": rouge1}
+    
+    rouge_scorer = evaluate.load("rouge")
+    return {"rouge1": rouge_scorer.compute(predictions=[prediction], references=[ground_truth])["rouge1"]}
 
 
 # ner

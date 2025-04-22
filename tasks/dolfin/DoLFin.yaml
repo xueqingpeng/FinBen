@@ -11,12 +11,12 @@ generation_kwargs:
   temperature: 0.0
   max_gen_toks: 1024
 metric_list:
-  - metric: !function multifinben_utils.comet
-    aggregation: !function multifinben_utils.comet_agg
+  - metric: !function dolfin_utils.comet
+    aggregation: !function dolfin_utils.comet_agg
     higher_is_better: true
 metadata:
   version: '1.0'
 task: DoLFin
-tag: multifinben
+tag: dolfin
 test_split: test
 training_split: train

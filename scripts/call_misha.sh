@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#SBATCH --job-name=finben_paper
+#SBATCH --job-name=finben
 #SBATCH --time=02-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gpus=4
+#SBATCH --gpus=2
 #SBATCH --constraint="h100"
 #SBATCH --mem=512G
 #SBATCH --mail-type=ALL

@@ -1,18 +1,14 @@
 tag: zh-classification
-task: reg-audit-entity-classification
-dataset_path: TheFinAI/multifinben-zh-regaec
+task: financeiq
+dataset_path: TheFinAI/multifinben-zh-FinanceIQ
 dataset_name: default
 test_split: test
 output_type: multiple_choice
 doc_to_text: '{{query}}'
 doc_to_target: gold
 doc_to_choice: choices
-#fewshot_config:
-#  sampler: first_n
-fewshot_split: train
+fewshot_split: valid
 target_delimiter: ""
-should_decontaminate: true
-doc_to_decontamination_query: "{{query}}"
 metric_list:
   - metric: acc
     aggregation: mean

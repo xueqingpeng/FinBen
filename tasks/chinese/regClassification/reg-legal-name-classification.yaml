@@ -1,6 +1,6 @@
-tag: zh-reg-classification
+tag: zh-classification
 task: reg-legal-name-classification
-dataset_path: TheFinAI/zh-reg-legal-name-classification
+dataset_path: TheFinAI/multifinben-zh-legalname
 dataset_name: default
 test_split: test
 output_type: multiple_choice
@@ -10,7 +10,7 @@ doc_to_choice: choices
 #fewshot_config:
 #  sampler: first_n
 fewshot_split: train
-num_fewshot: 5
+target_delimiter: ""
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 metric_list:

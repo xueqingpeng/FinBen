@@ -4,7 +4,8 @@ source .env
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+export CUDA_VISIBLE_DEVICES=0,1
+# export VLLM_USE_V1=0
 
 # Array of models
 MODELS=(
@@ -77,7 +78,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 1024
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
         --tasks gr \
         --batch_size auto \
         --output_path ../results/gr \
@@ -88,7 +89,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 8192
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_length=8192" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
         --tasks gr_long \
         --batch_size auto \
         --output_path ../results/gr \

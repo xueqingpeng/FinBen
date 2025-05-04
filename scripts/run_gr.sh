@@ -4,7 +4,7 @@ source .env
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 # export VLLM_USE_V1=0
 
 # Array of models
@@ -39,9 +39,10 @@ MODELS=(
     # "gpt-3.5-turbo-0125"
 
     # Multifinben
-    "google/gemma-3-4b-it"
-    "google/gemma-3-27b-it"
-    "Qwen/Qwen2.5-Omni-7B"
+    "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    # "google/gemma-3-4b-it"
+    # "google/gemma-3-27b-it"
+    # "Qwen/Qwen2.5-Omni-7B"
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 )
@@ -78,7 +79,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 1024
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
         --tasks gr \
         --batch_size auto \
         --output_path ../results/gr \
@@ -89,7 +90,7 @@ for MODEL in "${MODELS[@]}"; do
 
     # 8192
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_length=8192" \
         --tasks gr_long \
         --batch_size auto \
         --output_path ../results/gr \

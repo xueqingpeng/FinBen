@@ -10,12 +10,15 @@ export PYTHONWARNINGS="ignore"
 
 # Array of models
 MODELS=(
-    "Qwen/Qwen2.5-3B" # apply_chat_template
-    "Qwen/Qwen2.5-3B-Instruct"
-    "TheFinAI/fl-cleveland-sft-2"
-    "TheFinAI/fl-switzerland-sft-2"
-    "TheFinAI/fl-hungarian-sft-2"
-    "TheFinAI/fl-va-sft-2"
+    # "Qwen/Qwen2.5-3B" # apply_chat_template
+    # "Qwen/Qwen2.5-3B-Instruct"
+    "TheFinAI/fl-cleveland-sft-1"
+    "TheFinAI/fl-switzerland-sft-1"
+    "TheFinAI/fl-hungarian-sft-1"
+    # "TheFinAI/fl-cleveland-sft-2"
+    # "TheFinAI/fl-switzerland-sft-2"
+    # "TheFinAI/fl-hungarian-sft-2"
+    # "TheFinAI/fl-va-sft-2"
 )
 
 # Loop through each model
@@ -30,8 +33,8 @@ for MODEL in "${MODELS[@]}"; do
         --output_path ../results/fl \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=False,push_samples_to_hub=False,public_repo=False" \
         --log_samples \
-        --apply_chat_template \
-        --include_path ../tasks/federated_learning
+        --include_path ../tasks/federated_learning \
+        --apply_chat_template
 
     echo "Finished evaluating model: $MODEL"
 done

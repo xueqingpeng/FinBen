@@ -4,7 +4,7 @@ source .env
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+export CUDA_VISIBLE_DEVICES=0,1
 # export VLLM_USE_V1=0
 
 # Array of models
@@ -33,7 +33,7 @@ MODELS=(
     # "Qwen/QwQ-32B"
 
     # "gpt-4.5-preview"
-    "o3-mini"
+    # "o3-mini"
     # "gpt-4o"
     # "gpt-4o-mini"
     # "gpt-4"
@@ -44,6 +44,7 @@ MODELS=(
     # "google/gemma-3-4b-it"
     # "google/gemma-3-27b-it"
     # "Qwen/Qwen2.5-Omni-7B"
+    "TheFinAI/FinMA-ES-Bilingual"
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 )
@@ -78,37 +79,37 @@ for MODEL in "${MODELS[@]}"; do
     #     --apply_chat_template \
     #     --include_path ../tasks/plutus
 
-    # # 1024
-    # lm_eval --model vllm \
-    #     --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_model_len=1024" \
-    #     --tasks gr \
-    #     --batch_size auto \
-    #     --output_path ../results/gr \
-    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
-    #     --log_samples \
-    #     --apply_chat_template \
-    #     --include_path ../tasks/plutus
-
-    # # 8192
-    # lm_eval --model vllm \
-    #     --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_length=8192" \
-    #     --tasks gr_long \
-    #     --batch_size auto \
-    #     --output_path ../results/gr \
-    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
-    #     --log_samples \
-    #     --apply_chat_template \
-    #     --include_path ../tasks/plutus
-
-    # api-openai
-    lm_eval --model openai-chat-completions \
-        --model_args "model=$MODEL, max_tokens=8192" \
-        --tasks gr_long \
+    # 1024
+    lm_eval --model vllm \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
+        --tasks gr \
+        --batch_size auto \
         --output_path ../results/gr \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \
         --apply_chat_template \
         --include_path ../tasks/plutus
+
+    # 8192
+    lm_eval --model vllm \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
+        --tasks gr_long \
+        --batch_size auto \
+        --output_path ../results/gr \
+        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+        --log_samples \
+        --apply_chat_template \
+        --include_path ../tasks/plutus
+
+    # # api-openai
+    # lm_eval --model openai-chat-completions \
+    #     --model_args "model=$MODEL, max_tokens=8192" \
+    #     --tasks gr_long \
+    #     --output_path ../results/gr \
+    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+    #     --log_samples \
+    #     --apply_chat_template \
+    #     --include_path ../tasks/plutus
         
     echo "Finished evaluating model: $MODEL"
 done

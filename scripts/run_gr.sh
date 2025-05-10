@@ -44,7 +44,7 @@ MODELS=(
     # "google/gemma-3-4b-it"
     # "google/gemma-3-27b-it"
     # "Qwen/Qwen2.5-Omni-7B"
-    "TheFinAI/FinMA-ES-Bilingual"
+    "TheFinAI/FinMA-ES-Bilingual" # 4096
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 )

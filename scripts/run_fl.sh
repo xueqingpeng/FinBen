@@ -12,13 +12,20 @@ export PYTHONWARNINGS="ignore"
 MODELS=(
     # "Qwen/Qwen2.5-3B" # apply_chat_template
     # "Qwen/Qwen2.5-3B-Instruct"
-    "TheFinAI/fl-cleveland-sft-1"
-    "TheFinAI/fl-switzerland-sft-1"
-    "TheFinAI/fl-hungarian-sft-1"
-    # "TheFinAI/fl-cleveland-sft-2"
-    # "TheFinAI/fl-switzerland-sft-2"
-    # "TheFinAI/fl-hungarian-sft-2"
-    # "TheFinAI/fl-va-sft-2"
+    
+    # "TheFinAI/fl-cleveland-sft-0"
+    # "TheFinAI/fl-hungarian-sft-0"
+    # "TheFinAI/fl-switzerland-sft-0"
+    # "TheFinAI/fl-va-sft-0"
+    
+    # "TheFinAI/fl-cleveland-sft-1"
+    # "TheFinAI/fl-hungarian-sft-1"
+    # "TheFinAI/fl-switzerland-sft-1"
+    # "ShawnXiaoyuWang/FedMerged-5-5-2025"
+    
+    "TheFinAI/fl-cleveland-sft-2"
+    "TheFinAI/fl-hungarian-sft-2"
+    "TheFinAI/fl-switzerland-sft-2"
 )
 
 # Loop through each model

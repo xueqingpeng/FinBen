@@ -1,0 +1,31 @@
+tag: zh-classification_gen
+task: reg-audit-entity-classification_gen
+dataset_path: TheFinAI/multifinben-zh-regaec
+dataset_name: default
+test_split: test
+output_type: generate_until
+doc_to_text: '{{query}}'
+doc_to_target: '{{answer}}'
+fewshot_split: train
+target_delimiter: ""
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  until:
+    - "."
+    - ","
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 30
+filter_list:
+  - name: "score-first"
+    filter:
+      - function: "regex"
+        regex_pattern: "(财政审计|公共工程审计|海关审计|金融审计|社会保障审计|税收审计|资源环保审计)"
+      - function: "take_first"
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: '1.0'

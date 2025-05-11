@@ -1,0 +1,31 @@
+tag: zh-classification_gen
+task: reg-relation-classification_gen
+dataset_path: TheFinAI/multifinben-zh-regrelation
+dataset_name: default
+test_split: test
+output_type: generate_until
+doc_to_text: '{{query}}'
+doc_to_target: '{{answer}}'
+target_delimiter: ""
+fewshot_split: train
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  until:
+    - "."
+    - ","
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 30
+filter_list:
+  - name: "score-first"
+    filter:
+      - function: "regex"
+        regex_pattern: "(审计问题|审计事项|审计依据|审计方法|审计机构|审计成果|被审计单位|涉及的行业或领域)"
+      - function: "take_first"
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: '1.0'

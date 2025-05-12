@@ -4,7 +4,7 @@
 #SBATCH --time=02-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gpus=2
+#SBATCH --gpus=4
 #SBATCH --constraint="h100"
 #SBATCH --mem=512G
 #SBATCH --mail-type=ALL
@@ -27,4 +27,4 @@ export HF_HOME='/gpfs/radev/home/xp83/project/hf_cache'
 export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
 export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
 
-bash run_fl.sh
+bash run_dolfin.sh

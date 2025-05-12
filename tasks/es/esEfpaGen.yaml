@@ -1,21 +1,30 @@
 dataset_name: default
 dataset_path: TheFinAI/flare-es-efpa
-doc_to_target: gold
+doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'
-output_type: multiple_choice
-doc_to_choice: choices
+output_type: generate_until
 fewshot_split: test
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  until:
+    - "."
+    - ","
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 30
+filter_list:
+  - name: "score-first"
+    filter:
+      - function: "regex"
+        regex_pattern: "(Α|Β|C|D)"
+      - function: "take_first"
 metric_list:
-  - metric: acc
-    aggregation: mean
-    higher_is_better: true
-  - metric: acc_norm
+  - metric: exact_match
     aggregation: mean
     higher_is_better: true
 metadata:
   version: '1.0'
-task: ESEfPA
-tag: es
+task: ESEfPA_gen
+tag: es_gen
 test_split: test

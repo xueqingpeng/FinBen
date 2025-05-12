@@ -35,7 +35,7 @@ for MODEL in "${MODELS[@]}"; do
         
     # api-openai
     lm_eval --model openai-chat-completions \
-        --model_args "model=$MODEL, max_tokens=8192" \
+        --model_args "model=$MODEL, max_tokens=1024" \
         --tasks zh-classification_gen \
         --output_path ../results/zh \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-zh,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \

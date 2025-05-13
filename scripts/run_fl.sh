@@ -23,9 +23,9 @@ MODELS=(
     # "TheFinAI/fl-switzerland-sft-1"
     # "ShawnXiaoyuWang/FedMerged-5-5-2025"
     
-    "TheFinAI/fl-cleveland-sft-2"
-    "TheFinAI/fl-hungarian-sft-2"
-    "TheFinAI/fl-switzerland-sft-2"
+    "TheFinAI/fl-cleveland-sft-2-adapter"
+    "TheFinAI/fl-hungarian-sft-2-adapter"
+    "TheFinAI/fl-switzerland-sft-2-adapter"
 )
 
 # Loop through each model
@@ -38,7 +38,7 @@ for MODEL in "${MODELS[@]}"; do
         --tasks fl \
         --batch_size auto \
         --output_path ../results/fl \
-        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=False,push_samples_to_hub=False,public_repo=False" \
+        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \
         --include_path ../tasks/federated_learning \
         --apply_chat_template

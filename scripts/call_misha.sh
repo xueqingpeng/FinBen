@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #SBATCH --job-name=finben
-#SBATCH --time=02-00:00:00
+#SBATCH --time=01-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --gpus=4
 #SBATCH --constraint="h100"
-#SBATCH --mem=512G
+#SBATCH --mem=64G
 #SBATCH --mail-type=ALL
 #SBATCH --output=/home/xp83/Documents/project/logs/%j_gpu.out
 
@@ -27,4 +27,4 @@ export HF_HOME='/gpfs/radev/home/xp83/project/hf_cache'
 export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
 export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
 
-bash run_dolfin.sh
+bash run_ml.sh

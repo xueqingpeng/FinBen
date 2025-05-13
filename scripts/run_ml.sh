@@ -16,15 +16,15 @@ MODELS=(
     # "o3-mini"
     # "gpt-4o"
     # "meta-llama/Llama-4-Scout-17B-16E-Instruct"
-    "google/gemma-3-4b-it"
-    "google/gemma-3-27b-it"
-    "Qwen/Qwen2.5-32B-Instruct"
-    "Qwen/Qwen2.5-Omni-7B"
-    # "TheFinAI/finma-7b-full"
-    "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
-    "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
+    # "google/gemma-3-4b-it"
+    # "google/gemma-3-27b-it"
+    # "Qwen/Qwen2.5-32B-Instruct"
+    # "Qwen/Qwen2.5-Omni-7B"
+    # "TheFinAI/finma-7b-full" # 2048 # 
+    # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
+    # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
     # "TheFinAI/FinMA-ES-Bilingual" # 4096
-    "TheFinAI/plutus-8B-instruct"
+    # "TheFinAI/plutus-8B-instruct"
 )
 
 # Loop through each model
@@ -32,7 +32,7 @@ for MODEL in "${MODELS[@]}"; do
     echo "Evaluating model: $MODEL"
 
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_length=8192" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_length=8192" \
         --tasks ml \
         --batch_size auto \
         --output_path ../results/ml \

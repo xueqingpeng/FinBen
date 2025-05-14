@@ -19,7 +19,7 @@ for MODEL in "${MODELS[@]}"; do
     echo "Evaluating model: $MODEL"
     
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_model_len=2048" \
         --tasks dolfin \
         --batch_size auto \
         --output_path ../results/dolfin \

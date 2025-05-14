@@ -27,4 +27,4 @@ export HF_HOME='/gpfs/radev/home/xp83/project/hf_cache'
 export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
 export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
 
-bash run_jp.sh
+bash run_Llama-3.1-70B-Instruct.sh

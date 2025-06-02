@@ -11,7 +11,12 @@ MODELS=(
     # Multifinben
     # "gpt-4o"
     # "o3-mini"
-    "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    # "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    "google/gemma-3-27b-it"
+    "Qwen/Qwen2.5-32B-Instruct"
+    # "Qwen/Qwen2.5-Omni-7B"
+    # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
+    # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 )
 
 # Loop through each model

@@ -4,27 +4,29 @@
 #SBATCH --time=01-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gpus=4
+#SBATCH --gpus=2
 #SBATCH --constraint="h100"
-#SBATCH --mem=64G
+#SBATCH --mem=128G
 #SBATCH --mail-type=ALL
 #SBATCH --output=/home/xp83/Documents/project/logs/%j_gpu.out
 
 module load miniconda
 conda activate finben
 
-echo '-------------------------------------------------'
-echo "Job Name: ${SLURM_JOB_NAME}"
-echo "I have ${SLURM_CPUS_ON_NODE} CPUs on node $(hostname -s) on partition ${SLURM_JOB_PARTITION}"
-echo ${SLURM_SUBMIT_DIR}
-echo Running on host $(hostname)
-echo Time is $(date)
-echo SLURM_NODES are $(echo ${SLURM_NODELIST})
-echo '-------------------------------------------------'
+echo '---------------------------------------------------------------------------'
+echo "Job Name              : ${SLURM_JOB_NAME}"
+echo "Running on Host       : $(hostname)"
+echo "Partition             : ${SLURM_JOB_PARTITION}"
+echo "CPUs on Node          : ${SLURM_CPUS_ON_NODE}"
+echo "GPUs on Node          : ${SLURM_GPUS_ON_NODE:-0}"
+echo "CUDA_VISIBLE_DEVICES  : ${CUDA_VISIBLE_DEVICES:-None}"
+echo "Environment Name      : ${CONDA_DEFAULT_ENV:-Not Set}"
+echo "Node List             : ${SLURM_NODELIST}"
+echo "Submit Directory      : ${SLURM_SUBMIT_DIR}"
+echo "Start Time            : $(date)"
+echo '---------------------------------------------------------------------------'
 echo -e '\n\n'
 
-export HF_HOME='/gpfs/radev/home/xp83/project/hf_cache'
-export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
-export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
+export HF_HOME=/gpfs/radev/scratch/xu_hua/shared/hf_models
 
 bash run_fl.sh

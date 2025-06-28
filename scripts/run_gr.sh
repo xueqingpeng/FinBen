@@ -12,23 +12,24 @@ MODELS=(
     # "TheFinAI/FinLLaMA-instruct"
     # "TheFinAI/finma-7b-full"
 
-    # "meta-llama/Llama-3.2-1B-Instruct"
-    # "meta-llama/Meta-Llama-3-8B-Instruct"
-    # "meta-llama/Meta-Llama-3-70B-Instruct"
-    # "Qwen/Qwen2.5-1.5B-Instruct"
-    # "Qwen/Qwen2.5-7B-Instruct"
-    # "Qwen/Qwen2.5-32B-Instruct"
-    # "Qwen/Qwen2.5-72B-Instruct"
-    # "google/gemma-2-2b-it"
-    # "google/gemma-2-9b-it"
-    # "google/gemma-2-27b-it"
-    # "meta-llama/Llama-3.1-8B-Instruct"
-    # "mistralai/Mistral-7B-Instruct-v0.1"
-    # "mistralai/Mistral-7B-Instruct-v0.3"
+    "meta-llama/Llama-3.2-1B-Instruct"
+    "meta-llama/Meta-Llama-3-8B-Instruct"
+    "meta-llama/Meta-Llama-3-70B-Instruct"
+    "Qwen/Qwen2.5-1.5B-Instruct"
+    "Qwen/Qwen2.5-7B-Instruct"
+    "Qwen/Qwen2.5-32B-Instruct"
+    "Qwen/Qwen2.5-72B-Instruct"
+    "google/gemma-2-2b-it"
+    "google/gemma-2-9b-it"
+    "google/gemma-2-27b-it"
 
-    # "ilsp/Meltemi-7B-Instruct-v1.5"
-    # "ilsp/Llama-Krikri-8B-Instruct"
-    # "TheFinAI/plutus-8B-instruct"
+    "mistralai/Mistral-7B-Instruct-v0.1"
+    # "mistralai/Mistral-7B-Instruct-v0.3"
+    "meta-llama/Llama-3.1-8B-Instruct"
+
+    "ilsp/Meltemi-7B-Instruct-v1.5"
+    "ilsp/Llama-Krikri-8B-Instruct"
+    "TheFinAI/plutus-8B-instruct"
 
     # "Qwen/QwQ-32B"
 
@@ -44,7 +45,7 @@ MODELS=(
     # "google/gemma-3-4b-it"
     # "google/gemma-3-27b-it"
     # "Qwen/Qwen2.5-Omni-7B"
-    "TheFinAI/FinMA-ES-Bilingual" # 4096
+    # "TheFinAI/FinMA-ES-Bilingual" # 4096
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 )
@@ -58,7 +59,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --model_args "pretrained=$MODEL,max_length=1024" \
     #     --tasks gr \
     #     --num_fewshot 0 \
-    #     --device cuda:2 \
+    #     --device cuda:0 \
     #     --batch_size auto \
     #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
@@ -71,7 +72,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --model_args "pretrained=$MODEL,max_length=8192" \
     #     --tasks gr_long \
     #     --num_fewshot 0 \
-    #     --device cuda:2 \
+    #     --device cuda:0 \
     #     --batch_size auto \
     #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
@@ -82,7 +83,7 @@ for MODEL in "${MODELS[@]}"; do
     # 1024
     lm_eval --model vllm \
         --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
-        --tasks gr \
+        --tasks gr-add \
         --batch_size auto \
         --output_path ../results/gr \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
@@ -90,16 +91,16 @@ for MODEL in "${MODELS[@]}"; do
         --apply_chat_template \
         --include_path ../tasks/plutus
 
-    # 8192
-    lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
-        --tasks gr_long \
-        --batch_size auto \
-        --output_path ../results/gr \
-        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
-        --log_samples \
-        --apply_chat_template \
-        --include_path ../tasks/plutus
+    # # 8192
+    # lm_eval --model vllm \
+    #     --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_length=8192" \
+    #     --tasks gr_long \
+    #     --batch_size auto \
+    #     --output_path ../results/gr \
+    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+    #     --log_samples \
+    #     --apply_chat_template \
+    #     --include_path ../tasks/plutus
 
     # # api-openai
     # lm_eval --model openai-chat-completions \

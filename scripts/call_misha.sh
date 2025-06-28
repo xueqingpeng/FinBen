@@ -5,7 +5,7 @@
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --gpus=2
-#SBATCH --constraint="h100"
+#SBATCH --constraint="h200"
 #SBATCH --mem=128G
 #SBATCH --mail-type=ALL
 #SBATCH --output=/home/xp83/Documents/project/logs/%j_gpu.out
@@ -29,4 +29,4 @@ echo -e '\n\n'
 
 export HF_HOME=/gpfs/radev/scratch/xu_hua/shared/hf_models
 
-bash run_fl.sh
+bash run_gr.sh

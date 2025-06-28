@@ -20,34 +20,34 @@ def rouge1_agg(items):
     return rouge_scorer.compute(predictions=preds, references=refs)["rouge1"]
 
 
-# extractive summarization ROUGE-1 evaluation
-def parse_prediction_indices(s):
-    s = s.strip()
-    try:
-        items = json.loads(s)
-    except:
-        delim = ';' if ';' in s else ',' if ',' in s else None
-        items = s.split(delim) if delim else [s]
-    return [int(x) for x in items if x.strip().isdigit()]
+# # extractive summarization ROUGE-1 evaluation
+# def parse_prediction_indices(s):
+#     s = s.strip()
+#     try:
+#         items = json.loads(s)
+#     except:
+#         delim = ';' if ';' in s else ',' if ',' in s else None
+#         items = s.split(delim) if delim else [s]
+#     return [int(x) for x in items if x.strip().isdigit()]
 
 
-def process_results_for_es(doc, results):
-    choices = doc["choices"]
+# def process_results_for_es(doc, results):
+#     choices = doc["choices"]
 
-    ground_truth_indices = doc["gold"]
-    print(f"* ground_truth_indices: {ground_truth_indices}")
-    ground_truth = " ".join([choices[i] for i in ground_truth_indices])
-    print(f"* ground_truths: {ground_truth}")
+#     ground_truth_indices = doc["gold"]
+#     print(f"* ground_truth_indices: {ground_truth_indices}")
+#     ground_truth = " ".join([choices[i] for i in ground_truth_indices])
+#     print(f"* ground_truths: {ground_truth}")
 
-    print(f"* output: {results[0].strip()}")
+#     print(f"* output: {results[0].strip()}")
 
-    prediction_indices = parse_prediction_indices(results[0].strip())
-    print(f"* prediction_indices: {prediction_indices}")
-    prediction = " ".join([choices[i] for i in prediction_indices])
-    print(f"* prediction: {prediction}")
+#     prediction_indices = parse_prediction_indices(results[0].strip())
+#     print(f"* prediction_indices: {prediction_indices}")
+#     prediction = " ".join([choices[i] for i in prediction_indices])
+#     print(f"* prediction: {prediction}")
     
-    rouge_scorer = evaluate.load("rouge")
-    return {"rouge1": rouge_scorer.compute(predictions=[prediction], references=[ground_truth])["rouge1"]}
+#     rouge_scorer = evaluate.load("rouge")
+#     return {"rouge1": rouge_scorer.compute(predictions=[prediction], references=[ground_truth])["rouge1"]}
 
 
 # ner

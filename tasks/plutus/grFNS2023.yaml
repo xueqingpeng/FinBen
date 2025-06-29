@@ -17,6 +17,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRFNS2023
-tag: gr_long
+tag: gr_gen # gr_long
 test_split: test
 training_split: train

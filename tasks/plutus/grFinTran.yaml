@@ -3,7 +3,7 @@ dataset_path: TheFinAI/plutus-translation
 output_type: generate_until
 doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'
-fewshot_split: test
+fewshot_split: train
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 generation_kwargs:
@@ -17,6 +17,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRFinTran
-tag: gr-add
+tag: gr
 test_split: test
-training_split: test
+training_split: train

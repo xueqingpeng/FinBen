@@ -17,6 +17,6 @@ metric_list:
 metadata:
   version: '1.0'
 task: GRFinSum
-tag: gr-add
+tag: gr
 test_split: test
 training_split: train

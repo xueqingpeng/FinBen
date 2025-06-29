@@ -9,8 +9,8 @@ export CUDA_VISIBLE_DEVICES=0,1
 
 # Array of models
 MODELS=(
-    # "TheFinAI/FinLLaMA-instruct"
-    # "TheFinAI/finma-7b-full"
+    # "TheFinAI/FinLLaMA-instruct" # hf
+    # "TheFinAI/finma-7b-full" # apply_chat_template
 
     "meta-llama/Llama-3.2-1B-Instruct"
     "meta-llama/Meta-Llama-3-8B-Instruct"
@@ -35,6 +35,8 @@ MODELS=(
 
     # "gpt-4.5-preview"
     # "o3-mini"
+    # "o3"
+    # "o1"
     # "gpt-4o"
     # "gpt-4o-mini"
     # "gpt-4"
@@ -83,7 +85,7 @@ for MODEL in "${MODELS[@]}"; do
     # 1024
     lm_eval --model vllm \
         --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
-        --tasks gr-add \
+        --tasks gr \
         --batch_size auto \
         --output_path ../results/gr \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
@@ -104,8 +106,8 @@ for MODEL in "${MODELS[@]}"; do
 
     # # api-openai
     # lm_eval --model openai-chat-completions \
-    #     --model_args "model=$MODEL, max_tokens=8192" \
-    #     --tasks gr_long \
+    #     --model_args "model=$MODEL, max_tokens=1024" \
+    #     --tasks gr_gen \
     #     --output_path ../results/gr \
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \

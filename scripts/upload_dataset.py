@@ -54,7 +54,9 @@ for i in range(3):
 
 # %%
 dataset_dict = DatasetDict({
-    'test': translation_dataset
+    'train': translation_dataset,
+    'test': translation_dataset,
+    'validation': translation_dataset
 })
 
 print(f"Dataset structure: {dataset_dict}")

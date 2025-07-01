@@ -1,0 +1,23 @@
+dataset_name: default
+dataset_path: TheFinAI/plutus-finner-numeric-english
+output_type: generate_until
+doc_to_target: '{{answer}}'
+doc_to_text: '{{query}}'
+fewshot_split: test
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+generation_kwargs:
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 512
+metric_list:
+  - metric: f1
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: '1.0'
+task: GRFINNUM_en
+tag: gr_en
+test_split: test
+training_split: test
+process_results: !function gr_utils.process_results

@@ -1,5 +1,5 @@
 dataset_name: default
-dataset_path: TheFinAI/plutus-finner-numeric-english
+dataset_path: TheFinAI/plutus-finner-text-english
 output_type: generate_until
 doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'

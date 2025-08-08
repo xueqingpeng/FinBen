@@ -5,7 +5,9 @@ echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
 export VLLM_WORKER_MULTIPROC_METHOD="spawn"
 export CUDA_VISIBLE_DEVICES=0,1,2,3
-# export VLLM_USE_V1=0
+export VLLM_USE_V1=1
+export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync,expandable_segments:True,garbage_collection_threshold:0.6"
+export VLLM_LOG_LEVEL=DEBUG
 
 # Array of models
 MODELS=(
@@ -15,7 +17,9 @@ MODELS=(
     # Multifinben
     # "o3-mini"
     # "gpt-4o"
+    # "gpt-5"
     # "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    # "meta-llama/Llama-3.1-70B-Instruct"
     # "google/gemma-3-4b-it"
     # "google/gemma-3-27b-it"
     # "Qwen/Qwen2.5-32B-Instruct"
@@ -32,7 +36,7 @@ for MODEL in "${MODELS[@]}"; do
     echo "Evaluating model: $MODEL"
 
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_length=8192" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.8,max_num_seqs=1,max_length=8192,enforce_eager=True" \
         --tasks ml \
         --batch_size auto \
         --output_path ../results/ml \

@@ -1,5 +1,5 @@
 dataset_name: default
-dataset_path: TheFinAI/PolyFiQA-Easy
+dataset_path: TheFinAI/PolyFiQA-Easy-July
 output_type: generate_until
 doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'

@@ -25,6 +25,20 @@ MODELS=(
     # "TheFinAI/fl-cleveland-sft-2-adapter"
     # "TheFinAI/fl-hungarian-sft-2-adapter"
     # "TheFinAI/fl-switzerland-sft-2-adapter"
+
+    # "TheFinAI/fl-cleveland-sft-1-0-adapter"
+    # "TheFinAI/fl-cleveland-sft-1-1-adapter"
+    # "TheFinAI/fl-cleveland-sft-1-2-adapter"
+    # "TheFinAI/fl-cleveland-sft-1-3-adapter"
+    # "TheFinAI/fl-cleveland-sft-1-4-adapter"
+    # "TheFinAI/fl-cleveland-sft-1-bottom20"
+    # "TheFinAI/fl-cleveland-sft-1-top20"
+
+    # "TheFinAI/fl-hungarian-sft-1-bottom20"
+    # "TheFinAI/fl-hungarian-sft-1-top20"
+
+    # "TheFinAI/fl-switzerland-sft-1-bottom20"
+    # "TheFinAI/fl-switzerland-sft-1-top20"
 )
 
 # Loop through each model
@@ -34,7 +48,7 @@ for MODEL in "${MODELS[@]}"; do
     # 1024
     lm_eval --model vllm \
         --model_args "pretrained=$MODEL,tensor_parallel_size=2,gpu_memory_utilization=0.8,max_model_len=1024" \
-        --tasks fl \
+        --tasks Cleveland,Cleveland_perplexity \
         --batch_size auto \
         --output_path ../results/fl \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-fl-0shot,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \

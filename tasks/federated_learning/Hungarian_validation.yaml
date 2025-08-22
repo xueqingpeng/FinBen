@@ -1,0 +1,18 @@
+dataset_name: default
+dataset_path: TheFinAI/MED_SYN0_HUNGARIAN_test
+doc_to_target: gold
+doc_to_text: '{{query}}'
+output_type: multiple_choice
+doc_to_choice: choices
+fewshot_split: train
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+metric_list:
+  - metric: mcc
+    higher_is_better: true
+metadata:
+  version: '1.0'
+task: Hungarian
+tag: fl
+test_split: val
+training_split: train

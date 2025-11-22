@@ -43,7 +43,8 @@ for MODEL in "${MODELS[@]}"; do
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-ml,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \
         --apply_chat_template \
-        --include_path ../tasks/multilingual
+        --include_path ../tasks/multilingual \
+        # --limit 10
 
     # # api-openai
     # lm_eval --model openai-chat-completions \

@@ -1,0 +1,7 @@
+name: finben
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12.8
+prefix: /gpfs/radev/home/xp83/.conda/envs/finben

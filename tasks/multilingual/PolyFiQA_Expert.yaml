@@ -11,7 +11,7 @@ generation_kwargs:
   temperature: 0.0
   max_gen_toks: 512
 metric_list:
-  - metric: !function ml_utils.rouge1
+  - metric: rouge1
     aggregation: !function ml_utils.rouge1_agg
     higher_is_better: true
   - metric: numeric_consistency

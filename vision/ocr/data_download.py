@@ -2,13 +2,16 @@ from huggingface_hub import snapshot_download
 
 local_path = snapshot_download(
     repo_id="TheFinAI/OCR_Task",
-    repo_type="dataset",              # 关键：数据集一定要写 dataset
-    local_dir="/gpfs/radev/project/xu_hua/xp83/OCR_Task",         # 下载保存位置
-    revision="main",                  # 或某个 tag/commit
-    allow_patterns=None,              # 只下子集时可填 ["**.parquet", "train/**"]
-    ignore_patterns=None,             # 排除某些大文件
-    max_workers=4,                    # 并发数，视网络/CPU调整
-    local_dir_use_symlinks=False      # 需要可移动/打包时建议 False（避免硬链接）
+    repo_type="dataset",                                  # 关键：数据集一定要写 dataset
+    local_dir="/gpfs/radev/project/xu_hua/xp83/OCR_Task", # 下载保存位置
+    revision="main",                                      # 或某个 tag/commit
+    allow_patterns=None,                                  # 只下子集时可填 ["**.parquet", "train/**"]
+    ignore_patterns=None,                                 # 排除某些大文件
+    max_workers=4,                                        # 并发数，视网络/CPU调整
+    local_dir_use_symlinks=False,                         # 需要可移动/打包时建议 False（避免硬链接）
+    resume_download=True,                                 # 恢复下载（如果文件部分下载）
+    force_download=False,                                 # False: 跳过已存在的完整文件，只下载新文件或更新的文件
+    tqdm_class=None                                       # 显示下载进度
 )
 
 print("saved to:", local_path)

@@ -75,7 +75,7 @@ class Agent:
                 ),
             ).eval()
 
-        elif "qwen" in model_name.lower():
+        elif "Qwen2.5-Omni-7B" in self.model_name.lower() or "Qwen-VL-Max" in self.model_name.lower():
 
             if "omni" in model_name.lower():
                 self.processor = Qwen2_5OmniProcessor.from_pretrained(
@@ -161,6 +161,11 @@ class Agent:
             #     ),
             # ).eval()
 
+        elif "qwen" in model_name.lower():
+            self.together_api_key = os.getenv(
+                "TOGETHER_API_KEY"
+            )
+
         elif "gpt-4o" in model_name or "o3-mini" in model_name or "gpt-5" in model_name:
             self.openai_api_key = os.getenv(
                 "OPENAI_API_KEY"
@@ -169,11 +174,25 @@ class Agent:
         else:
             raise ValueError(f"Unsupported model: {model_name}")
 
+    def _is_base64(self, s):
+        """判断字符串是否是base64编码"""
+        if not isinstance(s, str) or len(s) < 100:
+            return False
+        try:
+            base64.b64decode(s.replace("data:image/png;base64,", ""), validate=True)
+            return True
+        except Exception:
+            return False
+
     def draft(self, image_path, local_version=False):
         if local_version:
-            image = Image.open(image_path).convert("RGB")
+            if self._is_base64(image_path):
+                image_data = base64.b64decode(image_path.replace("data:image/png;base64,", ""))
+                image = Image.open(io.BytesIO(image_data)).convert("RGB")
+            else:
+                image = Image.open(image_path).convert("RGB")
         else:
-            image = image_path
+            image = image_path.replace("data:image/png;base64,", "")
 
         prompt = "Convert this financial statement page into semantically correct HTML. Return html and nothing else. Use plain html only, no styling please."
 
@@ -219,7 +238,7 @@ class Agent:
             )
             return result
 
-        elif "qwen" in self.model_name.lower():
+        elif "Qwen2.5-Omni-7B" in self.model_name.lower() or "Qwen/Qwen-VL-Max" in self.model_name.lower():
 
             if "omni" in self.model_name.lower():
                 USE_AUDIO_IN_VIDEO = False
@@ -402,53 +421,83 @@ class Agent:
         #     )
         #     return result
 
-        elif "gpt-4o" in self.model_name:
+        elif "gpt-4o" in self.model_name or "gpt-5" in self.model_name:
             if local_version:
-                buffered = io.BytesIO()
-                image.save(buffered, format="PNG")
-                img_bytes = buffered.getvalue()
-                b64_image = base64.b64encode(img_bytes).decode("utf-8")
+                if self._is_base64(image_path):
+                    b64_image = image_path.replace("data:image/png;base64,", "")
+                else:
+                    buffered = io.BytesIO()
+                    image.save(buffered, format="PNG")
+                    img_bytes = buffered.getvalue()
+                    b64_image = base64.b64encode(img_bytes).decode("utf-8")
             else:
-                b64_image = image_path
+                b64_image = image_path.replace("data:image/png;base64,", "")
 
             client = OpenAI(
                 # This is the default and can be omitted
                 api_key=self.openai_api_key,
             )
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/png;base64,{b64_image}"
+            if "gpt-4o" in self.model_name:
+                response = client.chat.completions.create(
+                    model="gpt-4o",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "image_url",
+                                    "image_url": {
+                                        "url": f"data:image/png;base64,{b64_image}"
+                                    },
                                 },
-                            },
-                            {"type": "text", "text": prompt},
-                        ],
-                    }
-                ],
-                temperature=0,
-                max_tokens=2048
-            )
+                                {"type": "text", "text": prompt},
+                            ],
+                        }
+                    ],
+                    temperature=0,
+                    max_tokens=2048
+                )
+            elif "gpt-5" in self.model_name:
+                response = client.chat.completions.create(
+                    model="gpt-5",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "image_url",
+                                    "image_url": {
+                                        "url": f"data:image/png;base64,{b64_image}"
+                                    },
+                                },
+                                {"type": "text", "text": prompt},
+                            ],
+                        }
+                    ],
+                    max_completion_tokens=2048
+                )
             return response.choices[0].message.content
 
-        elif "gemma" in self.model_name.lower() or "llama" in self.model_name.lower():
+        elif "gemma" in self.model_name.lower() or "llama" in self.model_name.lower() or "qwen" in self.model_name.lower():
             if "Llama-4-Scout-17B-16E-Instruct" in self.model_name:
                 model_id = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
             elif "gemma-3-27b-it" in self.model_name:
                 model_id = "google/gemma-3-27b-it"
-               
+            elif "gemma-3n-E4B-it" in self.model_name:
+                model_id = "google/gemma-3n-E4B-it"
+            elif "Qwen2.5-VL-72B-Instruct" in self.model_name:
+                model_id = "Qwen/Qwen2.5-VL-72B-Instruct"
+
             if local_version:
-                buffered = io.BytesIO()
-                image.save(buffered, format="PNG")
-                img_bytes = buffered.getvalue()
-                b64_image = base64.b64encode(img_bytes).decode("utf-8")
+                if self._is_base64(image_path):
+                    b64_image = image_path.replace("data:image/png;base64,", "")
+                else:
+                    buffered = io.BytesIO()
+                    image.save(buffered, format="PNG")
+                    img_bytes = buffered.getvalue()
+                    b64_image = base64.b64encode(img_bytes).decode("utf-8")
             else:
-                b64_image = image_path
+                b64_image = image_path.replace("data:image/png;base64,", "")
 
             client = Together(
                 api_key=self.together_api_key,

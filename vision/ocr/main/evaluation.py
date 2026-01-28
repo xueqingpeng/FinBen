@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import Levenshtein
 import evaluate
 from typing import List, Dict, Any
+from datasets import load_dataset
 
 rouge = load("rouge")
 
@@ -300,7 +301,7 @@ def main():
                     model_name=model,
                     experiment_tag="zero-shot",
                     language=language,
-                    local_version = True, 
+                    local_version = False, 
                     local_dir = "/gpfs/radev/project/xu_hua/xp83/OCR_Task", 
                 )
             except Exception as e:

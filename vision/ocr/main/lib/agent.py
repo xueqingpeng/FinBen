@@ -437,6 +437,7 @@ class Agent:
                 # This is the default and can be omitted
                 api_key=self.openai_api_key,
             )
+
             if "gpt-4o" in self.model_name:
                 response = client.chat.completions.create(
                     model="gpt-4o",
@@ -457,26 +458,40 @@ class Agent:
                     temperature=0,
                     max_tokens=2048
                 )
+                return response.choices[0].message.content
+
             elif "gpt-5" in self.model_name:
-                response = client.chat.completions.create(
+                response = client.responses.create(
                     model="gpt-5",
-                    messages=[
+                    input=[
                         {
                             "role": "user",
                             "content": [
                                 {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": f"data:image/png;base64,{b64_image}"
-                                    },
+                                    "type": "input_image",
+                                    "image_url": f"data:image/png;base64,{b64_image}",
                                 },
-                                {"type": "text", "text": prompt},
+                                {
+                                    "type": "input_text", 
+                                    "text": prompt
+                                },
                             ],
                         }
                     ],
-                    max_completion_tokens=2048
                 )
-            return response.choices[0].message.content
+                
+                def get_response_text(response):
+                    texts = []
+
+                    for item in response.output:
+                        if item.type == "message":
+                            for c in item.content:
+                                if c.type in ("output_text", "text"):
+                                    texts.append(c.text)
+
+                    return "\n".join(texts).strip()
+
+                return get_response_text(response)
 
         elif "gemma" in self.model_name.lower() or "llama" in self.model_name.lower() or "qwen" in self.model_name.lower():
             if "Llama-4-Scout-17B-16E-Instruct" in self.model_name:

@@ -18,7 +18,8 @@ MODELS=(
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 
-    ""
+    "gpt-5"
+    "gpt-5-mini"
 
 )
 

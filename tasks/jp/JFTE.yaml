@@ -3,7 +3,7 @@ dataset_path: TheFinAI/JF-TE
 output_type: generate_until
 doc_to_target: '{{answer}}'
 doc_to_text: '{{query}}'
-fewshot_split: test
+fewshot_split: train
 should_decontaminate: true
 doc_to_decontamination_query: "{{query}}"
 generation_kwargs:
@@ -26,5 +26,5 @@ metadata:
   version: '1.0'
 task: JFTE
 tag: jp_new
-test_split: test
+test_split: train
 process_results: !function jp_utils.process_results

@@ -18,8 +18,9 @@ MODELS=(
     # "Duxiaoman-DI/Llama3.1-XuanYuan-FinX1-Preview"
     # "cyberagent/DeepSeek-R1-Distill-Qwen-32B-Japanese"
 
-    "gpt-5"
-    "gpt-5-mini"
+    # "gpt-5"
+    # "gpt-5-mini"
+    "deepseek-ai/DeepSeek-V3.1"
 
 )
 
@@ -37,8 +38,20 @@ for MODEL in "${MODELS[@]}"; do
     #     --apply_chat_template \
     #     --include_path ../tasks/jp
         
-    # api-openai
-    lm_eval --model openai-chat-completions \
+    # # api-openai
+    # lm_eval --model openai-chat-completions \
+    #     --model_args "pretrained=$MODEL, max_tokens=1024" \
+    #     --tasks jp_new \
+    #     --num_fewshot 0 \
+    #     --batch_size auto \
+    #     --output_path ../results/jp \
+    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-jp,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+    #     --log_samples \
+    #     --apply_chat_template \
+    #     --include_path ../tasks/jp
+
+    # api-togetherai
+    lm_eval --model togetherai-chat-completions \
         --model_args "pretrained=$MODEL, max_tokens=1024" \
         --tasks jp_new \
         --num_fewshot 0 \
@@ -48,18 +61,6 @@ for MODEL in "${MODELS[@]}"; do
         --log_samples \
         --apply_chat_template \
         --include_path ../tasks/jp
-
-    # # api-togetherai
-    # lm_eval --model togetherai-chat-completions \
-    #     --model_args "pretrained=$MODEL, max_tokens=1024" \
-    #     --tasks jp_new \
-    #     --num_fewshot 0 \
-    #     --batch_size auto \
-    #     --output_path ../results/jp \
-    #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-jp,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
-    #     --log_samples \
-    #     --apply_chat_template \
-    #     --include_path ../tasks/
         
     # # api-deepseek
     # lm_eval --model deepseek-chat-completions \
@@ -71,7 +72,7 @@ for MODEL in "${MODELS[@]}"; do
     #     --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-jp,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
     #     --log_samples \
     #     --apply_chat_template \
-    #     --include_path ../tasks/
+    #     --include_path ../tasks/jp
         
     echo "Finished evaluating model: $MODEL"
 done

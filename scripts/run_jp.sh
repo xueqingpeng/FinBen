@@ -23,12 +23,18 @@ MODELS=(
     # "gpt-4o"
     # "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8"
     # "meta-llama/Llama-3.3-70B-Instruct-Turbo"
-    # "Qwen3 235B-A22B Instruct 2507"
+    # "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
+    # "google/gemma-3n-E4B-it"
     # "mistralai/Mistral-Small-24B-Instruct-2501"
     # "deepseek-ai/DeepSeek-V3.1"
-    # "google/gemma-3n-E4B-it"
     # "moonshotai/Kimi-K2.5"
-
+    # "tokyotech-llm/Llama-3.3-Swallow-70B-Instruct-v0.4"
+    "stabilityai/japanese-stablelm-instruct-beta-70b"
+    # "Qwen/Qwen3-32B"
+    # "Qwen/Qwen3-14B"
+    # "Qwen/Qwen3-8B"
+    # "Qwen/Qwen2.5-32B-Instruct"
+    "Qwen/Qwen-14B"
 )
 
 # Loop through each model
@@ -36,7 +42,7 @@ for MODEL in "${MODELS[@]}"; do
     echo "Evaluating model: $MODEL"
     
     lm_eval --model vllm \
-        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_model_len=1024" \
+        --model_args "pretrained=$MODEL,tensor_parallel_size=4,gpu_memory_utilization=0.95,max_model_len=1024,trust_remote_code=True" \
         --tasks jp_new \
         --num_fewshot 0 \
         --batch_size auto \

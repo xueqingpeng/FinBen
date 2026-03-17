@@ -9,8 +9,9 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
 # Array of models
 MODELS=(
     # Multifinben
+    "gpt-5"
     # "gpt-4o"
-    "o3-mini"
+    # "o3-mini"
     # "deepseek-v3"
     # "deepseek-r1"
     # "google/gemma-3-4b-it"
@@ -37,6 +38,15 @@ for MODEL in "${MODELS[@]}"; do
     lm_eval --model openai-chat-completions \
         --model_args "model=$MODEL, max_tokens=1024" \
         --tasks reg-audit-entity-classification_gen,reg-audit-problem-entity-classification_gen,reg-legal-name-classification_gen,reg-relation-classification_gen \
+        --output_path ../results/zh \
+        --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-zh,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
+        --log_samples \
+        --apply_chat_template \
+        --include_path ../tasks/chinese
+
+    lm_eval --model openai-chat-completions \
+        --model_args "model=$MODEL, max_tokens=1024" \
+        --tasks financeiq_gen \
         --output_path ../results/zh \
         --hf_hub_log_args "hub_results_org=TheFinAI,details_repo_name=lm-eval-results-zh,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False" \
         --log_samples \

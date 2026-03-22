@@ -502,6 +502,10 @@ class Agent:
                 model_id = "google/gemma-3n-E4B-it"
             elif "Qwen2.5-VL-72B-Instruct" in self.model_name:
                 model_id = "Qwen/Qwen2.5-VL-72B-Instruct"
+            elif "Qwen3.5-397B-A17B" in self.model_name:
+                model_id = "Qwen/Qwen3.5-397B-A17B"
+            elif "Qwen3-VL-8B-Instruct" in self.model_name:
+                model_id = "Qwen/Qwen3-VL-8B-Instruct"
 
             if local_version:
                 if self._is_base64(image_path):

@@ -50,7 +50,8 @@ def evaluate(
         if language == "smallocr":
             ds = load_dataset(
                 "csv",
-                data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input_additional.csv"
+                # data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input_additional.csv",
+                data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input.csv",
             )
             df = ds["train"].to_pandas()
         else:
@@ -100,7 +101,7 @@ def evaluate(
 
 def main():
     models = [
-        "gpt-4o",
+        # "gpt-4o",
         # "meta-llama/Llama-4-Scout-17B-16E-Instruct",
         # # "google/gemma-3-4b-it",
         # "google/gemma-3-27b-it",
@@ -114,6 +115,8 @@ def main():
         # "google/gemma-3n-E4B-it",
         # "gpt-5",
         # "TheFinAI/FinLLaVA",
+        "Qwen/Qwen3.5-397B-A17B",
+        "Qwen/Qwen3-VL-8B-Instruct",
     ]
     languages = [
         "smallocr",

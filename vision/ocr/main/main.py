@@ -111,12 +111,13 @@ def main():
         # # # "TheFinAI/FinLLaVA",
         # # # "Qwen/Qwen-VL-Max",
         
+        # "TheFinAI/FinLLaVA",
         # "Qwen/Qwen2.5-VL-72B-Instruct",
         # "google/gemma-3n-E4B-it",
+        # "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        # "Qwen/Qwen3-VL-8B-Instruct",
+        # "Qwen/Qwen3.5-397B-A17B",
         # "gpt-5",
-        # "TheFinAI/FinLLaVA",
-        "Qwen/Qwen3.5-397B-A17B",
-        "Qwen/Qwen3-VL-8B-Instruct",
     ]
     languages = [
         "smallocr",

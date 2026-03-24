@@ -239,14 +239,15 @@ def run_rouge_eval(
         if language == "smallocr":
             ds = load_dataset(
                 "csv",
-                data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input_additional.csv"
+                # data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input_additional.csv",
+                data_files="https://huggingface.co/datasets/TheFinAI/FinCriticalED/resolve/main/raw_input.csv",
             )
             df = ds["train"].to_pandas()
         else:
             ds = load_dataset("TheFinAI/OCR_Task", data_files=REMOTE_FILES[language])
             df = ds["train"].to_pandas()
 
-    pred_dir = f'./results/{language}/{model_name.replace("/", "-")}_{experiment_tag}'
+    pred_dir = f'../results/{language}/{model_name.replace("/", "-")}_{experiment_tag}'
 
     # Extract indices from prediction files
     pred_indexes = []
@@ -259,11 +260,11 @@ def run_rouge_eval(
                 continue
 
     df = df.loc[df.index.intersection(pred_indexes)]
-    # df_eval, df_result = evaluate_rouge(pred_dir, df["matched_html"], model_name=model_name, lang=language)
-    df_eval, df_result = evaluate_rouge(pred_dir, df["data.matched_html"], model_name=model_name, lang=language)
+    df_eval, df_result = evaluate_rouge(pred_dir, df["matched_html"], model_name=model_name, lang=language)
+    # df_eval, df_result = evaluate_rouge(pred_dir, df["data.matched_html"], model_name=model_name, lang=language)
 
-    eval_fp = f'./results/{language}/{model_name.replace("/", "-")}_{experiment_tag}_eval.csv'
-    result_fp = f'./results/{language}/{model_name.replace("/", "-")}_{experiment_tag}_result.csv'
+    eval_fp = f'../results/{language}/{model_name.replace("/", "-")}_{experiment_tag}_eval.csv'
+    result_fp = f'../results/{language}/{model_name.replace("/", "-")}_{experiment_tag}_result.csv'
     df_eval.to_csv(eval_fp, index=False)
     df_result.to_csv(result_fp, index=False)
     print(f"✅ Evaluation saved to CSV")
@@ -271,18 +272,22 @@ def run_rouge_eval(
 
 def main():
     models = [
-        "gpt-4o",
-        "meta-llama/Llama-4-Scout-17B-16E-Instruct",
-        # "google/gemma-3-4b-it",
-        "google/gemma-3-27b-it",
-        # "Qwen/Qwen2.5-Omni-7B",
-        "deepseek-ai/deepseek-vl-7b-chat",
-        "liuhaotian/llava-v1.6-vicuna-13b",
-        # # "TheFinAI/FinLLaVA",
-        # # "Qwen/Qwen-VL-Max",
+        # "gpt-4o",
+        # "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        # # "google/gemma-3-4b-it",
+        # "google/gemma-3-27b-it",
+        # # "Qwen/Qwen2.5-Omni-7B",
+        # "deepseek-ai/deepseek-vl-7b-chat",
+        # "liuhaotian/llava-v1.6-vicuna-13b",
+        # # # "TheFinAI/FinLLaVA",
+        # # # "Qwen/Qwen-VL-Max",
         
+        # "TheFinAI/FinLLaVA",
         # "Qwen/Qwen2.5-VL-72B-Instruct",
         # "google/gemma-3n-E4B-it",
+        # "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        # "Qwen/Qwen3-VL-8B-Instruct",
+        # "Qwen/Qwen3.5-397B-A17B",
         # "gpt-5",
     ]
     languages = [

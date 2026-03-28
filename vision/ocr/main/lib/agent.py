@@ -194,7 +194,50 @@ class Agent:
         else:
             image = image_path.replace("data:image/png;base64,", "")
 
-        prompt = "Convert this financial statement page into semantically correct HTML. Return html and nothing else. Use plain html only, no styling please."
+        prompt =  """
+        You are an expert OCR system for financial filings and tabular financial documents.
+
+        Transcribe the provided document image into one valid HTML document that faithfully preserves the page content and structure.
+
+        The output will be evaluated for exact financially critical OCR accuracy. Do not summarize, interpret, normalize, repair, or complete the content.
+
+        Critical field types that must be preserved exactly:
+        1. Number: integers, decimals, percentages, signed values, parenthesized values, comma-separated values. Examples: 1,234 ; 10.5 ; 25% ; (500)
+        2. Temporal: years, dates, quarters, months, time periods. Examples: 2024 ; December 31, 2023 ; Q1 2025
+        3. Monetary Unit: only currency markers and money scale markers, not full amounts. Examples: $ ; US$ ; million ; billion ; thousand
+        - In $500, the monetary unit is $
+        - In US$500 million, the monetary units are US$ and million
+        4. Reporting Entity: company names, legal entities, trusts, funds, organizations, subsidiaries, or identifying person names
+        5. Financial Concept: accounting and finance-specific concepts or line items. Examples: Revenue ; Net income ; Total assets ; Operating expenses
+
+        Critical errors to avoid:
+        1. Number Error: changing digits, commas, decimals, signs, parentheses, or percent marks
+        2. Temporal Error: changing any date, year, quarter, or time period
+        3. Monetary Unit Error: dropping or altering $, US$, million, billion, thousand, etc.
+        4. Reporting Entity Error: corrupting or substituting entity/person names
+        5. Financial Concept Error: replacing a financial term with a different term
+
+        Rules:
+        - Preserve exact visible text.
+        - Preserve punctuation, capitalization, commas, decimals, symbols, and abbreviations exactly.
+        - Do not normalize numbers or dates.
+        - Do not convert units.
+        - Do not fix spelling.
+        - Do not infer missing text.
+        - Do not paraphrase.
+        - Do not hallucinate.
+        - Preserve reading order.
+        - Preserve paragraph and heading structure.
+        - Preserve table structure with correct rows and columns.
+        - Keep values in the correct cells.
+        - Use clean semantic HTML only.
+
+        Use tags such as: <html>, <body>, <h1>, <h2>, <h3>, <p>, <table>, <tr>, <th>, <td>.
+
+        Do not output markdown, code fences, comments, JSON, XML, CSS, JavaScript, or any explanation.
+
+        Return exactly one HTML document and nothing else.
+        """
 
         if "llava" in self.model_name.lower():
             conversation = [
@@ -220,7 +263,7 @@ class Agent:
             )
 
             with torch.no_grad():
-                output = self.model.generate(**inputs, max_new_tokens=2048)[:, inputs["input_ids"].shape[-1]:]
+                output = self.model.generate(**inputs, max_new_tokens=4096)[:, inputs["input_ids"].shape[-1]:]
 
             result = self.processor.tokenizer.decode(
                 output[0], skip_special_tokens=True
@@ -232,7 +275,7 @@ class Agent:
                 self.device
             )
             with torch.no_grad():
-                output = self.model.generate(**inputs, max_new_tokens=2048)
+                output = self.model.generate(**inputs, max_new_tokens=4096)
             result = self.processor.tokenizer.decode(
                 output[0], skip_special_tokens=True
             )
@@ -283,7 +326,7 @@ class Agent:
                 with torch.no_grad():
                     text_ids, audio = self.model.generate(
                         **inputs, use_audio_in_video=USE_AUDIO_IN_VIDEO,
-                        max_new_tokens=2048
+                        max_new_tokens=4096
                     )
 
                 if isinstance(text_ids, (list, tuple)):
@@ -305,7 +348,7 @@ class Agent:
                 inputs = self.processor(query, return_tensors="pt").to(self.device)
 
                 with torch.no_grad():
-                    output = self.model.generate(**inputs, max_new_tokens=2048)
+                    output = self.model.generate(**inputs, max_new_tokens=4096)
 
                 result = self.processor.decode(output[0], skip_special_tokens=True)
 
@@ -343,7 +386,7 @@ class Agent:
                     pad_token_id=self.tokenizer.eos_token_id,
                     bos_token_id=self.tokenizer.bos_token_id,
                     eos_token_id=self.tokenizer.eos_token_id,
-                    max_new_tokens=2048,
+                    max_new_tokens=4096,
                     do_sample=False,
                     use_cache=True,
                 )
@@ -376,7 +419,7 @@ class Agent:
         #         torch.bfloat16 if torch.cuda.is_available() else torch.float32,
         #     )
         #     with torch.no_grad():
-        #         output = self.model.generate(**inputs, max_new_tokens=2048)
+        #         output = self.model.generate(**inputs, max_new_tokens=4096)
 
         #     result = self.processor.tokenizer.decode(
         #         output[0], skip_special_tokens=True
@@ -412,7 +455,7 @@ class Agent:
         #     )
 
         #     with torch.no_grad():
-        #         output = self.model.generate(**inputs, max_new_tokens=2048)
+        #         output = self.model.generate(**inputs, max_new_tokens=4096)
 
         #     decoded = processor.decode(generation, skip_special_tokens=True)
 
@@ -456,13 +499,15 @@ class Agent:
                         }
                     ],
                     temperature=0,
-                    max_tokens=2048
+                    # max_tokens=4096,
+                    max_completion_tokens=4096,
                 )
                 return response.choices[0].message.content
 
             elif "gpt-5" in self.model_name:
                 response = client.responses.create(
                     model="gpt-5",
+                    max_output_tokens=4096,
                     input=[
                         {
                             "role": "user",
@@ -538,7 +583,7 @@ class Agent:
                     }
                 ],
                 temperature=0,
-                max_tokens=2048,
+                max_tokens=4096,
             )
             return response.choices[0].message.content
 
@@ -578,7 +623,7 @@ class Agent:
         #         modalities=["text", "image"],
         #         stream=True,
         #         stream_options={"include_usage": True},
-        #         max_tokens=2048,
+        #         max_tokens=4096,
         #     )
         #     text = []
         #     for chunk in response:
